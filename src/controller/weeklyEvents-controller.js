@@ -11,9 +11,18 @@ const uploadThisWeek = async(req,res)=>{
             welcome: req.body.welcome,
             message: req.body.message,
             fellowship: req.body.fellowship,
-            // messagefile: req.body.messagefile,
-            // songs:req.body.songs,
+            ppt: req.body.ppt,
+            songlist:req.body.songlist,
         }
+
+        if(req.file)
+        {
+            event.coverImage={
+                data:req.file.buffer,
+                contentType:req.file.mimetype
+            }
+        }
+
         await thisWeek.create(event);
         res.send({status:200, success: true, msg: "Weekly stuff Uploaded"});
     }

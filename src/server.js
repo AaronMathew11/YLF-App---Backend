@@ -5,6 +5,8 @@ var mongoose = require("mongoose");
 var config = require("./config/config");
 var port = process.env.PORT || 5000;
 const cors = require("cors");
+var multer = require("multer")
+
 
 var app = express();
 

@@ -73,7 +73,7 @@ routes.get("/getUpcomingEvents",eventController.getUpcomingEvents);
 
 
 //upload this week stuff
-routes.post("/uploadThisWeek",weeklyEventController.uploadThisWeek);
+routes.post("/uploadThisWeek",upload.single('coverImage'),weeklyEventController.uploadThisWeek);
 
 //get week stuff
 routes.get("/getThisWeek",weeklyEventController.getThisWeek);
