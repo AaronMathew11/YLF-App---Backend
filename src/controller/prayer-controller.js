@@ -9,8 +9,15 @@ const uploadPrayer = async(req,res)=>{
             date:req.body.date,
         }
 
-        await prayerModel.create(prayer);
+        const createdPrayer=await prayerModel.create(prayer);
+        if(createdPrayer)
+        {
         res.send({status:200, success:true, msg:prayer});
+        }
+        else {
+            // If not created (due to schema validation or other reasons), send a status 400 response
+            res.status(400).send({ success: false, msg: "upload failed" });
+          }
     }
     catch(e)
     {

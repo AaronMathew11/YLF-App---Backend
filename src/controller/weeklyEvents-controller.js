@@ -23,8 +23,14 @@ const uploadThisWeek = async(req,res)=>{
             }
         }
 
-        await thisWeek.create(event);
+        const createdWeek=await thisWeek.create(event);
+        if(createdWeek){
         res.send({status:200, success: true, msg: "Weekly stuff Uploaded"});
+        }
+        else {
+            // If not created (due to schema validation or other reasons), send a status 400 response
+            res.status(400).send({ success: false, msg: "Not uploaded" });
+          }
     }
     catch(e)
     {

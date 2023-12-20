@@ -17,8 +17,13 @@ const uploadPastEvent = async (req, res) => {
       testimony3Description: req.body.testimony3Description,
     };
 
-    await pastEvent.create(event);
-    res.send({ status: 200, success: true, msg: "Event Uploaded" });
+    const createdEvent1 = await pastEvent.create(event);
+    if (createdEvent1) {
+      res.send({ status: 200, success: true, msg: "Event Uploaded" });
+    } else {
+      // If not created (due to schema validation or other reasons), send a status 400 response
+      res.status(400).send({ success: false, msg: "Event not uploaded" });
+    }
   } catch (e) {
     res.send({ status: 400, success: false, msg: "Event not Uploaded" });
   }
@@ -35,10 +40,15 @@ const uploadUpcomingEvent = async (req, res) => {
       studentsCost: req.body.studentsCost,
       adultsCost: req.body.adultsCost,
       kidsCost: req.body.kidsCost,
-      regLink : req.body.regLink
+      regLink: req.body.regLink,
     };
-    await upcomingEvent.create(event);
-    res.send({ status: 200, success: true, msg: "Event Uploaded" });
+    const createdEvent2 = await upcomingEvent.create(event);
+    if (createdEvent2) {
+      res.send({ status: 200, success: true, msg: "Event Uploaded" });
+    } else {
+      // If not created (due to schema validation or other reasons), send a status 400 response
+      res.status(400).send({ success: false, msg: "Event not uploaded" });
+    }
   } catch (e) {
     res.send({ status: 400, success: false, msg: "Event not uploaded" });
   }
@@ -53,8 +63,14 @@ const uploadCurrentEvent = async (req, res) => {
       schedule: req.body.schedule,
       material: req.body.material,
     };
-    await currentEvent.create(event);
-    res.send({ status: 200, success: true, msg: "Event Uploaded" });
+    const createdEvent3 = await currentEvent.create(event);
+    if (createdEvent3) {
+      res.send({ status: 200, success: true, msg: "Event Uploaded" });
+      console.log(event);
+    } else {
+      // If not created (due to schema validation or other reasons), send a status 400 response
+      res.status(400).send({ success: false, msg: "Event not uploaded" });
+    }
   } catch (e) {
     res.send({ status: 400, success: false, msg: "Event not uploaded" });
   }

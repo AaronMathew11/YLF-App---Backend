@@ -17,6 +17,7 @@ const uploadWorshipSchedule = async (req, res) => {
         return createdSchedule;
       })
     );
+    if(createdSchedules)
     res.send({ status: 200, success: true, data: createdSchedules });
   } catch (e) {
     console.error("Error:", e);

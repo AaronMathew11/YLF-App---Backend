@@ -3,7 +3,7 @@ var kitchenMenuModel = require("../models/Menu");
 const uploadKitchenMenu = async (req, res) => {
   try {
     const menu = {
-      address : req.body.address,
+      address: req.body.address,
       menu: req.body.menu,
       count: req.body.count,
       purchaseItems: req.body.items,
@@ -21,7 +21,6 @@ const uploadKitchenMenu = async (req, res) => {
       serving: req.body.serving,
       postWash: req.body.postwash,
       cleaning: req.body.cleaning,
-
     };
     const kitchenMenu = req.body; // Array of objects
 
@@ -30,10 +29,15 @@ const uploadKitchenMenu = async (req, res) => {
     const address = kitchenMenu.address;
 
     // Delete existing records with the specified date
-    await kitchenMenuModel.deleteMany({ address});
+    await kitchenMenuModel.deleteMany({ address });
     // await kitchenMenuModel.deleteMany({});
-    await kitchenMenuModel.create(menu);
-    res.send({ status: 200, success: true, msg: menu });
+    const createdMenu = await kitchenMenuModel.create(menu);
+    if (createdMenu) {
+      res.send({ status: 200, success: true, msg: menu });
+    } else {
+      // If not created (due to schema validation or other reasons), send a status 400 response
+      res.status(400).send({ success: false, msg: "upload failed" });
+    }
   } catch (e) {
     console.log(e);
     res.send({ status: 400, success: false, msg: "could not upload Menu" });
