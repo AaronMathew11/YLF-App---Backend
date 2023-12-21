@@ -38,7 +38,6 @@ var upcomingEventsSchema = mongoose.Schema({
   },
   regLink: {
     type: String,
-    required: true,
     trim: true,
   },
 });
